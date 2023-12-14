@@ -8,8 +8,6 @@ export class IrrigationController {
   constructor(private irrigationService: IrrigationService) {}
   @Post()
   async addNewData(@Body() body: addDataDto): Promise<Irrigation> {
-    // return await this.testService.addTest(addDataDto);
-    // console.log('create data api', body);
     return this.irrigationService.addData(body);
   }
 

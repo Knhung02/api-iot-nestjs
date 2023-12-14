@@ -4,13 +4,11 @@ import { RegisterDto } from './dto/auth.dto';
 import { User } from '@prisma/client';
 import { hash, compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class AuthService {
   constructor(
     private prismaService: PrismaService,
     private jwtService: JwtService,
-    private configService: ConfigService,
   ) {}
   register = async (userData: RegisterDto): Promise<any> => {
     //checking email has already used
@@ -79,26 +77,10 @@ export class AuthService {
     });
     delete user.password;
     return {
-      // data: user,
+      Auth: user,
       accessToken,
       // refreshToken,
     };
     // return await this.signJwtToken(user.id, user.email);
   };
-  // async signJwtToken(
-  //   userId: number,
-  //   email: string,
-  // ): Promise<{ accessToken: string }> {
-  //   const payload = {
-  //     sub: userId,
-  //     email,
-  //   };
-  //   const jwtString = await this.jwtService.signAsync(payload, {
-  //     expiresIn: '10m',
-  //     secret: this.configService.get('JWT_SECRET'),
-  //   });
-  //   return {
-  //     accessToken: jwtString,
-  //   };
-  // }
 }
